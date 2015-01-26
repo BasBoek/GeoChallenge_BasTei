@@ -1,0 +1,20 @@
+Assignment:
+
+Objective
+
+    Demonstrate scripting skills in a spatial oriented challenge
+    Develop a reproducible RStudio project that does something geo-cool!
+    Demonstrating capacity to read, visualize, and write spatial data that other can use
+    Using basic scripting concepts for handling spatial data
+    Using different functions and libraries (new?)
+    Writing a clear, structured and well documented project that is understandable by others
+
+
+Deliverables by 30 and 31/01:
+
+    A project that is reproducible and produces a result (map, analysis) for your presentation
+    Submit the project via a Git Repository
+    A presentation where you explain
+        objective
+        method i.e. workflow
+        result by some nice visualisation (map, output, analysis)
