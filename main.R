@@ -19,15 +19,30 @@ Load_mig()
 print("Information about land use data per country per year")
 print("summary")
 Indo_lu_2001
-Indo_lu_2010
+Indo_lu_2010)
+
 
 # Make plots showing the prevalence of the land use types of the country
-lu_class <- read.csv("lu_classes.csv")
-Freq <- as.data.frame(freq(Indo_lu_2001))   # Freq table (unique classes)
-Classfreq <- merge(Freq, lu_class, by.x = names(Freq[1]), by.y = names(lu_class[1])) # Merge for class names 
-barplot(Classfreq$count, names.arg = Classfreq$Label, srt=45, cex.names = 0.5)                   
+lu_class <- read.csv("lu_classes.csv") # Names
+Freq2001 <- as.data.frame(freq(Indo_lu_2001))   # Freq table (unique classes)
+Classfreq2001 <- merge(Freq2001, lu_class, by.x = names(Freq2001[1]), by.y = names(lu_class[1])) # Merge 
 
+Freq2010 <- as.data.frame(freq(Indo_lu_2010))   # Freq table (unique classes)
+Classfreq2010 <- merge(Freq2010, lu_class, by.x = names(Freq2010[1]), by.y = names(lu_class[1])) # Merge 
+opar <- par(mfrow=c(1,2))
+barplot(Classfreq2001$count, names.arg = Classfreq2001$Label, srt=45, cex.names = 0.5)
+barplot(Classfreq2010$count, names.arg = Classfreq2010$Label, srt=45, cex.names = 0.5)
+par(opar)
 
+Freq_both <- merge(Classfreq2001, Classfreq2010, by.x = names(Classfreq2001[1]), by.y = names(Classfreq2010[1]))
+Freq_both <- Freq_both[,1:4]
+Freq_both
+names(Freq_both) <-c("Class", "Count2001", "Name", "Count2010")
+Freq_both$difference <- Freq_both$Count2010 - Freq_both$Count2001
+Freq_both
+
+Classfreq2001
+Classfreq2010
 # Reclass land use data 2001 & 2010
 Simplify(2001)
 Simplify(2010)
