@@ -18,22 +18,18 @@ lu_2001 <- raster('data/LC_5min_global_2001.tif')
 lu_2010 <- raster("data/LC_5min_global_2010.tif")
 lu_stack <- stack(lu_2001, lu_2010)
 
-Load_mig()
-
-
+migr <- raster('data/netmigration_2000_2010_1km_crop.tif')
 
 # Crop to desired extent
 Countryname = 'Indonesia'
 source('R/MaskCountry.R')
-MaskCountry(Countryname)
 
-country_lu
 
 # Data exploration LAND USE
 print("Information about land use data per country per year")
 print("summary")
-Indonesia_lu
-
+country_lu
+spplot(country_lu)
 
 # Make plots showing the prevalence of the land use types of the country
 lu_class <- read.csv("lu_classes.csv") # Names
@@ -73,8 +69,24 @@ ChangeClasses(2001,2010)
 # Agricultural change:
 
 # DATA exploration Migration
+# (!!!! improve visualisation with raster vis? spplot?)
+plot(migr)
+hist(migr)
+plot(migr,zlim = c(-100,200))
+brk <- c( -100, -50, 0, 100, 500, 1000, 5000, 10000, 50000, 100000)
+cols <- colorRampPalette(c("red", "pink", "orange", "yellow",  "green", "darkgreen", "blue", "darkblue", "purple"))( 9 )
+plot(migr,breaks=brk, col=cols)
 
+#cols <- colorRampPalette(c("red", "yellow", "orange", "green", "darkgreen"))( 255 )
+plot(migr, col=cols)
 
+# request basic statistic values
+print("statistic values: mean, max and min")
+cellStats(migr, stat='mean', na.rm=TRUE)
+cellStats(migr, stat='max', na.rm=TRUE)
+cellStats(migr, stat='min', na.rm=TRUE)
+
+dev.off()
 
 # extract mean migration per subnational level
 

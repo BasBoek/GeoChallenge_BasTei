@@ -6,7 +6,3 @@ Load_LU <- function(link, year){
   gunzip(paste('data/LC_5min_global_',year,'.tif.gz', sep = ""))
 }
 
-
-
-#function Load_Mig():
-#  blabla2 
