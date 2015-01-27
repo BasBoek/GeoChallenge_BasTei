@@ -67,7 +67,6 @@ CF_mat <- CF_mat$table
 row.names(CF_mat) <- (c("Forest2001", 'Other veg2001', 'Agriculture2001','Urban2001'))
 colnames(CF_mat) <- (c('Forest2010', 'Other veg2010', 'Agriculture2010','Urban2010'))
 
-plot(CF_mat)
 # Link data 2001 to 2010 and create 9 unique land use change classes
 ChangeClasses(2001,2010)
 
