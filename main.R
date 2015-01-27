@@ -11,7 +11,7 @@ library(raster)
 library(rgdal)
 library(R.utils)
 library(caret)
-
+library(e1071)
 # Load input data into memory
 source('R/LoadData.R')
 Load_LU(link2001, 2001)
@@ -25,7 +25,7 @@ migr <- raster('data/netmigration_2000_2010_1km_crop.tif')
 
 # Crop to desired extent
 Countryname = 'Indonesia'
-source('R/MaskCountry.R')
+source('R/MaskingCountry.R')
 
 ####################################### LANDUSE #####################################
 # Data exploration LAND USE
@@ -56,15 +56,18 @@ lu_class
 # Reclass land use data 2001 & 2010
 
 source('R/Simplify.R')
-Simplify(country_lu)
+plot(LU_Ras_Simple)
 
 # Create confusion matrix
 LUasVec_2001 <- as.vector(LU_Ras_Simple$LU_2001)
 LUasVec_2010 <- as.vector(LU_Ras_Simple$LU_2010)
 unique(LU_Ras_Simple)
-CF_mat <- confusionMatrix(LU_Ras_Simple$LU_2001, LU_Ras_Simple$LU_2010)
+CF_mat <- confusionMatrix(LUasVec_2001, LUasVec_2010) #responseName = 'halla'
+CF_mat <- CF_mat$table
+row.names(CF_mat) <- (c("Forest2001", 'Other veg2001', 'Agriculture2001','Urban2001'))
+colnames(CF_mat) <- (c('Forest2010', 'Other veg2010', 'Agriculture2010','Urban2010'))
 
-
+plot(CF_mat)
 # Link data 2001 to 2010 and create 9 unique land use change classes
 ChangeClasses(2001,2010)
 

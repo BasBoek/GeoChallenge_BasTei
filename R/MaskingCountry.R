@@ -13,9 +13,5 @@ lu_crop <- crop(lu_stack, new_ext)
 print("mask lu")
 country_lu <- mask(lu_crop, Countrypoly)
 print("mask migr")
-country_migr <- mask(migr, Countrypoly)
+#country_migr <- mask(migr, Countrypoly)
 print("end")
-
-
-
-
