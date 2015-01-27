@@ -1,0 +1,17 @@
+number,description
+11,Forest no change
+12,Forest to Other Veg
+13,Forest to Agriculture
+14,Forest to Urban
+21,Other Veg to Forest
+22,Other Veg no change
+23,Other Veg to Agriculture
+24,Other Veg to Urban
+31,Agriculture to Forest
+32,Agriculture to Other Veg
+33,Agriculture no change
+34,Agriculture to to Urban
+41,Urban to Forest
+42,Urban to Other Veg
+43,Urban to Agriculture
+44,Urban no change
