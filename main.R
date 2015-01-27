@@ -2,24 +2,37 @@
 # Team Bastei
 # January, 2015
 
+rm(list=ls(all=TRUE))
 
 # Load required packages
 library(raster)
 library(rgdal)
+library(R.utils)
 
 # Load input data into memory
-Load_LU(URL)
+source('R/LoadData.R')
+Load_LU(link2001, 2001)
+Load_LU(link2010, 2010)
+
+lu_2001 <- raster('data/LC_5min_global_2001.tif')
+lu_2010 <- raster("data/LC_5min_global_2010.tif")
+lu_stack <- stack(lu_2001, lu_2010)
+
 Load_mig()
 
+
+
 # Crop to desired extent
+Countryname = 'Indonesia'
+source('R/MaskCountry.R')
+MaskCountry(Countryname)
 
-
+country_lu
 
 # Data exploration LAND USE
 print("Information about land use data per country per year")
 print("summary")
-Indo_lu_2001
-Indo_lu_2010)
+Indonesia_lu
 
 
 # Make plots showing the prevalence of the land use types of the country

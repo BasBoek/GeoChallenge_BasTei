@@ -18,3 +18,25 @@ Deliverables by 30 and 31/01:
         objective
         method i.e. workflow
         result by some nice visualisation (map, output, analysis)
+
+
+
+
+
+# resolution = 5 arc minutes = +- 10 km
+
+
+  
+# manualy cropping a peace of the tropics
+#lu_2001 <- raster('data/LU_2001/LC_5min_global_2001.tif')
+# manualy cropping a peace of the tropics
+#e <- drawExtent(show=TRUE)
+#croplu2001 <- crop(lu_2001, extent)
+#plot(croplu2001)
+# writeRaster(x = croplu2001,filename = "data/croplu2001.tif")
+
+#lu_2010 <- raster('data/LU_2010/LC_5min_global_2010.tif')
+# e <- drawExtent(show=TRUE)
+#croplu2010 <- crop(lu_2010, extent)
+#plot(croplu2001)
+# writeRaster(x = croplu2010,filename = "data/croplu2010.tif")
