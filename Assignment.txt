@@ -20,7 +20,16 @@ Deliverables by 30 and 31/01:
         result by some nice visualisation (map, output, analysis)
 
 
+In presentation:
+- histogram 2001, 2010
+- difference table
+- land use map 2001, land use map 2010 (simplified into 4 classes)
+- confusion matrix from to classes
+- forest change map
+- agriculture change map
+- urban change map
 
+- migratio
 
 
 # resolution = 5 arc minutes = +- 10 km
