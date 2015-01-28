@@ -35,7 +35,7 @@ country_lu
 spplot(country_lu)
 
 # Make plots showing the prevalence of the land use types of the country
-lu_class <- read.csv("lu_classes.csv") # Names
+lu_class <- read.csv("data/lu_classes.csv") # Names
 Freq2001 <- as.data.frame(freq(country_lu$LC_5min_global_2001))   # Freq table (unique classes)
 Classfreq2001 <- merge(Freq2001, lu_class, by.x = names(Freq2001[1]), by.y = names(lu_class[1])) # Merge 
 
