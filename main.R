@@ -12,6 +12,7 @@ library(rgdal)
 library(R.utils)
 library(caret)
 library(e1071)
+
 # Load input data into memory
 source('R/LoadData.R')
 Load_LU(link2001, 2001)
@@ -67,8 +68,17 @@ CF_mat <- CF_mat$table
 row.names(CF_mat) <- (c("Forest2001", 'Other veg2001', 'Agriculture2001','Urban2001'))
 colnames(CF_mat) <- (c('Forest2010', 'Other veg2010', 'Agriculture2010','Urban2010'))
 
+# Confusion matrix:
+CF_mat
+
+
 # Link data 2001 to 2010 and create 9 unique land use change classes
-ChangeClasses(2001,2010)
+source('R/ChangeClasses.R')
+
+# Plot forest change, urban change and agricultural change maps:
+plot(Forest_Change, col = c('red', 'yellow', 'green'))
+plot(Agri_Change, col = c('red', 'yellow', 'green'))
+plot(Urban_Change, col = c('red', 'yellow', 'green'))
 
 # Reclass to & visualize urban, forest and agricultural change.
 
@@ -81,25 +91,32 @@ ChangeClasses(2001,2010)
 ####################################### MIGRATION #####################################
 # DATA exploration Migration
 # (!!!! improve visualisation with raster vis? spplot?)
-res(migr)
-plot(migr)
-hist(migr)
+res(migr_bigcell)
+plot(migr_bigcell)
+hist(migr_bigcell)
 
-plot(migr,zlim = c(-100,200))
+plot(migr_bigcell,zlim = c(-100,200))
 brk <- c( -100, -50, 0, 100, 500, 1000, 5000, 10000, 50000, 100000)
 cols <- colorRampPalette(c("red", "pink", "orange", "yellow",  "green", "darkgreen", "blue", "darkblue", "purple"))( 9 )
-plot(migr,breaks=brk, col=cols)
+plot(migr_bigcell,breaks=brk, col=cols)
 
 cols <- colorRampPalette(c("red", "yellow", "orange", "green", "darkgreen"))( 255 )
-plot(migr, col=cols)
+plot(migr_bigcell, col=cols)
+dev.off()
 
 # request basic statistic values
 print("statistic values: mean, max and min")
-cellStats(migr, stat='mean', na.rm=TRUE)
-cellStats(migr, stat='max', na.rm=TRUE) #where is this?? interesting
-cellStats(migr, stat='min', na.rm=TRUE)
-dev.off()
+cellStats(migr_bigcell, stat='mean', na.rm=TRUE)
+cellStats(migr_bigcell, stat='max', na.rm=TRUE) #where is this?? interesting
+cellStats(migr_bigcell, stat='min', na.rm=TRUE)
+
+# Information about non-resampled croppped area
+print("statistic values: mean, max and min")
+cellStats(migr_crop, stat='mean', na.rm=TRUE)
+cellStats(migr_crop, stat='max', na.rm=TRUE) #where is this?? interesting
+cellStats(migr_crop, stat='min', na.rm=TRUE)
+
 
 # extract mean migration per subnational level
-
+Countrysub <- getData('GADM', country=Countrycode, level=1, path = 'data/')
 

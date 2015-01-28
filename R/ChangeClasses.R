@@ -24,11 +24,8 @@ Reclass_Change <- function(reftable){
 }
 
 Forest_Change <- Reclass_Change(RCL_Forest)
-head(Forest_Change)
 Agri_Change <- Reclass_Change(RCL_Agri)
 Urban_Change <- Reclass_Change(RCL_Urban)
-plot(Forest_Change)
-plot(Agri_Change, col = c('red', 'yellow', 'green'))
-plot(Urban_Change, col = c('red', 'yellow', 'green'))
+
 
 
