@@ -119,4 +119,6 @@ cellStats(migr_crop, stat='min', na.rm=TRUE)
 
 
 # extract mean migration per subnational level
-
+Source('R/MigrationSub.R')
+#Plot 
+spplot(Migr_sub_final, zcol ='netmigration_2000_2010_1km_crop', col.regions=colorRampPalette(c('red', 'yellow', 'green', 'lightgreen'))(16))
