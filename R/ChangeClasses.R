@@ -24,8 +24,20 @@ Reclass_Change <- function(reftable){
 }
 
 Forest_Change <- Reclass_Change(RCL_Forest)
-Agri_Change <- Reclass_Change(RCL_Agri)
+Agriculture_Change <- Reclass_Change(RCL_Agri)
 Urban_Change <- Reclass_Change(RCL_Urban)
+
+PlotChange <- function(LandUseType){
+  cols = c('red', 'darkgrey', 'green')
+  plot(Countrypoly, col='lightyellow', bg = "lightblue", main = paste(deparse(substitute(LandUseType)) ,'Map 2001-2010: ', Countryname, sep = " "), lwd = 1)
+  plot(LandUseType,  add=T, col = cols, legend = FALSE)
+  legend("bottomright", legend=c("Loss", "No Change", "Gain"), fill=cols, bg="white", text.font=9, text.width = 4, cex = 0.7)
+  plot(Countrypoly, add=T, lwd = 1)
+  
+  
+}
+
+
 
 
 

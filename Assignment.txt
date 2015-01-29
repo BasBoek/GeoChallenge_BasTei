@@ -21,15 +21,18 @@ Deliverables by 30 and 31/01:
 
 
 In presentation:
-- histogram 2001, 2010
-- difference table
+- barplot simplified 2001, 2010, netto difference
 - land use map 2001, land use map 2010 (simplified into 4 classes)
-- confusion matrix from to classes
-- forest change map
-- agriculture change map
-- urban change map
 
-- migratio
+-? gif simplifies land use maps 2001 tm 2010 (rastervis)?
+- confusion matrix from to classes
+           V forest change map
+           V agriculture change map
+           V urban change map
+- migration
+
+
+- presentatie Markdown met data description, flowchart, maps
 
 
 # resolution = 5 arc minutes = +- 10 km
@@ -49,3 +52,19 @@ In presentation:
 #croplu2010 <- crop(lu_2010, extent)
 #plot(croplu2001)
 # writeRaster(x = croplu2010,filename = "data/croplu2010.tif")
+
+
+
+
+
+FOCTIZATION OID
+
+a <- as.factor(Forest_Change)
+is.factor(a)
+x <- levels(a)[[1]]
+x$code <- c("Loss", "No Change", "Gain")
+levels(a) <- x
+
+
+
+

@@ -26,7 +26,7 @@ lu_stack <- stack(lu_2001, lu_2010)
 migr <- raster('data/netmigration_2000_2010_1km_crop.tif')
 
 # Crop to desired extent
-Countryname = 'Malaysia'
+Countryname = 'Brunei'
 source('R/MaskingCountry.R')
 
 ####################################### LANDUSE #####################################
@@ -84,10 +84,10 @@ CF_mat
 source('R/ChangeClasses.R')
 
 # Plot forest change, urban change and agricultural change maps:
-plot(Forest_Change, col = c('red', 'orange', 'green'))
-plot(Agri_Change, col = c('red', 'orange', 'green'))
-plot(Urban_Change, col = c('red', 'orange', 'green'))
-
+# Forest
+PlotChange(Forest_Change)
+PlotChange(Agriculture_Change)
+PlotChange(Urban_Change)
 
 ####################################### MIGRATION #####################################
 # DATA exploration Migration
@@ -119,6 +119,6 @@ cellStats(migr_crop, stat='min', na.rm=TRUE)
 
 
 # extract mean migration per subnational level
-Source('R/MigrationSub.R')
+source('R/MigrationSub.R')
 #Plot 
 spplot(Migr_sub_final, zcol ='netmigration_2000_2010_1km_crop', col.regions=colorRampPalette(c('red', 'yellow', 'green', 'lightgreen'))(16))
