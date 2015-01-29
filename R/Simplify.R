@@ -10,3 +10,10 @@ Simplify <- function(raster){
 
 LU_Ras_Simple <- Simplify(country_lu)
 names(LU_Ras_Simple) <- c("LU_2001","LU_2010")
+
+df2001 <- as.data.frame(freq(LU_Ras_Simple$LU_2010))
+names(df2001) <- c('value','count2001')
+df2010 <- as.data.frame(freq(LU_Ras_Simple$LU_2001))
+names(df2010) <- c('value','count2010')
+Count_dif <- merge(df2010, df2001, x.by = 'value', y.by = 'value')
+Count_dif$netdif <- Count_dif$count2010 - Count_dif$count2001

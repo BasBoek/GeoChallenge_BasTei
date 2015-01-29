@@ -26,13 +26,12 @@ lu_stack <- stack(lu_2001, lu_2010)
 migr <- raster('data/netmigration_2000_2010_1km_crop.tif')
 
 # Crop to desired extent
-Countryname = 'Brunei'
+Countryname = 'Malaysia'
 source('R/MaskingCountry.R')
 
 ####################################### LANDUSE #####################################
 # Data exploration LAND USE
-print("Information about land use data per country per year")
-print("summary")
+
 country_lu
 
 # Make plots showing the prevalence of the land use types of the country
@@ -58,11 +57,11 @@ Freq_both
 
 # Reduce to 4 landuse classes
 source('R/Simplify.R')
-Count_dif = as.data.frame(freq(LU_Ras_Simple$LU_2010) - freq(LU_Ras_Simple$LU_2001))
+
 opar <- par(mfrow=c(1,3))
 barplot(LU_Ras_Simple$LU_2001, names.arg = c("Forest", "Other_Veg", "Agriculture", "Urban"), srt=45, cex.names = 0.9, col = c("darkgreen", "green", "orange", "red"), xlab = "Land use class")
 barplot(LU_Ras_Simple$LU_2010, names.arg = c("Forest", "Other_Veg", "Agriculture", "Urban"), srt=45, cex.names = 0.9, col = c("darkgreen", "green", "orange", "red"))
-barplot(Count_dif$count, names.arg = c("Forest", "Other_Veg", "Agriculture", "Urban", NA), srt=45, cex.names = 0.9, col = c("darkgreen", "green", "orange", "red", "black"))
+barplot(Count_dif$netdif, names.arg = c("Forest", "Other_Veg", "Agriculture", "Urban", NA), srt=45, cex.names = 0.9, col = c("darkgreen", "green", "orange", "red", "black"))
 
 par(opar)
 spplot(LU_Ras_Simple)
@@ -85,6 +84,7 @@ source('R/ChangeClasses.R')
 
 # Plot forest change, urban change and agricultural change maps:
 # Forest
+dev.off()
 PlotChange(Forest_Change)
 PlotChange(Agriculture_Change)
 PlotChange(Urban_Change)
@@ -120,5 +120,6 @@ cellStats(migr_crop, stat='min', na.rm=TRUE)
 
 # extract mean migration per subnational level
 source('R/MigrationSub.R')
-#Plot 
-spplot(Migr_sub_final, zcol ='netmigration_2000_2010_1km_crop', col.regions=colorRampPalette(c('red', 'yellow', 'green', 'lightgreen'))(16))
+
+# Create GoogleVis Map
+source('R/MigrVis.R')
