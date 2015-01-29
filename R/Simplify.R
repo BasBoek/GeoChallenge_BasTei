@@ -8,9 +8,11 @@ Simplify <- function(raster){
   reclassify(raster, rcl)
 }
 
+# Execute function
 LU_Ras_Simple <- Simplify(country_lu)
 names(LU_Ras_Simple) <- c("LU_2001","LU_2010")
 
+# Creating difference table
 df2001 <- as.data.frame(freq(LU_Ras_Simple$LU_2010))
 names(df2001) <- c('value','count2001')
 df2010 <- as.data.frame(freq(LU_Ras_Simple$LU_2001))

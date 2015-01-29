@@ -26,8 +26,6 @@ print("mask lu")
 country_lu <- mask(lu_crop, Countrypoly)
 
 #Mask migration has long computation time because of higher resolution
-#country_migr <- mask(migr_crop, Countrypoly)
-
 print("mask migr")
 migr_bigcell <- mask(migr_bigcell, Countrypoly)
 
