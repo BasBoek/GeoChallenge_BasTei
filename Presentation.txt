@@ -1,0 +1,18 @@
+- Intro script:
+    Goal
+    Data description
+    Method (Image workflow)
+
+- Land use:
+    Barplots (count 4 simplified land use types & netto difference)
+    Confusion matrix (land use change)    
+    But where? -> Land use maps 2001-2010
+    Changed -> three maps (forest, agriculture, urban)
+
+- Migration:
+    - Histogram (resampled data)
+    - Map average per subnational level (= ca per 1 square km)
+
+- Concluding:
+    - Histogram & HTML GoogleVIS only for Malaysia, script not completely generic
+    - 

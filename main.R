@@ -13,6 +13,9 @@ library(R.utils)
 library(caret)
 library(e1071)
 library(ggplot2)
+library(googleVis)
+library(rasterVis)
+library(ISOcodes)
 
 # Load input data into memory
 source('R/LoadData.R')
@@ -24,6 +27,8 @@ lu_2010 <- raster("data/LC_5min_global_2010.tif")
 lu_stack <- stack(lu_2001, lu_2010)
 
 migr <- raster('data/netmigration_2000_2010_1km_crop.tif')
+file.remove('data/LC_5min_global_2001.tif')
+file.remove('data/LC_5min_global_2010.tif')
 
 # Crop to desired extent
 Countryname = 'Malaysia'

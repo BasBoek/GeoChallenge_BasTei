@@ -1,8 +1,6 @@
 
-library(googleVis)
 op <- options(gvis.plot.tag='chart')
-library(rasterVis)
-library(ISOcodes)
+
 data("ISO_3166_2")
 
 Migr_sub_final_plot <- subset(Migr_sub_final, select = c(NAME_1, netmigration_2000_2010_1km_crop))
