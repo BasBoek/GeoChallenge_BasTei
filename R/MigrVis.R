@@ -1,3 +1,6 @@
+#spplot results
+spplot(Migr_sub_final, zcol = 'netmigration_2000_2010_1km_crop')
+
 # Set options chart for plot
 op <- options(gvis.plot.tag='chart')
 

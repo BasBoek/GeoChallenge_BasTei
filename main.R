@@ -2,6 +2,14 @@
 # Team Bastei
 # January, 2015
 
+#Goals:
+#- Change maps for land use types Forest, Agriculture & Urban Land Use for a country
+#- Mean migration rates per subnational level for a country
+# Data: 
+#- Modis Land cover (extent = world, resolution 5 min -> +- 10 km)
+#- CIESIN migration (extent = world, resolution 1 km)
+
+# Clean environment
 rm(list=ls(all=TRUE))
 
 ############################### LOAD ALL DATA ###################################
@@ -16,6 +24,10 @@ library(ggplot2)
 library(googleVis)
 library(rasterVis)
 library(ISOcodes)
+library(rgeos)
+library(maptools)
+library(PBSmapping)
+
 
 # Load input data into memory
 source('R/LoadData.R')
@@ -44,9 +56,12 @@ Classfreq2001 <- merge(Freq2001, lu_class, by.x = names(Freq2001[1]), by.y = nam
 
 Freq2010 <- as.data.frame(freq(country_lu$LC_5min_global_2010))   # Freq table (unique classes)
 Classfreq2010 <- merge(Freq2010, lu_class, by.x = names(Freq2010[1]), by.y = names(lu_class[1])) # Merge 
+
+#Barplots count cell per land use class
+cols = c("blue", "darkgreen", "brown", "orange", "red","green")
 opar <- par(mfrow=c(1,2))
-barplot(Classfreq2001$count, names.arg = Classfreq2001$Label, srt=45, cex.names = 0.5)
-barplot(Classfreq2010$count, names.arg = Classfreq2010$Label, srt=45, cex.names = 0.5)
+barplot(Classfreq2001$count, names.arg = Classfreq2001$Label, col = cols, srt=45, cex.names = 0.7, las=2)
+barplot(Classfreq2010$count, names.arg = Classfreq2010$Label, col = cols, srt=45, cex.names = 0.7, las=2)
 par(opar)
 
 # Table showing netto change land use classes
@@ -69,12 +84,12 @@ par(opar)
 dev.off()
 
 # Plotting Simplified land use maps for both years
-opar <- par(mfrow=c(2,1))
+opar <- par(mfrow=c(1,2))
 cols = c('darkgreen', 'green', 'orange', 'red')
-plot(Countrypoly, bg = "lightblue", main = paste('Landuse', Countryname, "2001", sep = " "), lwd = 1)
+plot(Continentpoly_clipped, col='lightyellow', bg = "lightblue", main = paste('Landuse', Countryname, "2001", sep = " "), lwd = 1)
 plot(LU_Ras_Simple$LU_2001,  add=T, col = cols, legend = FALSE, main = '2001')
 legend("bottomright", legend=c("Forest", "Other_Veg", "Agriculture", "Urban"), fill=cols, bg="white", text.font=9, text.width = 4, cex = 0.5)
-plot(Countrypoly, bg = "lightblue", main = paste('Landuse', Countryname, "2010", sep = " ") , lwd = 1)
+plot(Continentpoly_clipped, bg = "lightblue", main = paste('Landuse', Countryname, "2010", sep = " ") , lwd = 1)
 plot(LU_Ras_Simple$LU_2010,  add=T, col = cols, legend = FALSE)
 legend("bottomright", legend=c("Forest", "Other_Veg", "Agriculture", "Urban"), fill=cols, bg="white", text.font=9, text.width = 4, cex = 0.5)
 par(opar)
@@ -134,3 +149,4 @@ source('R/MigrVis.R')
 
 # Open the link to the map
 browseURL(paste('file://', getwd(),'data', 'MigrationWebmap.html',  sep='/'))
+

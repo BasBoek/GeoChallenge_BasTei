@@ -15,8 +15,8 @@ Agriculture & Urban Land Use
 
 Data:
 
-- Modis Land cover (10 km)
-- CIESIN migration (1 km)
+- Modis Land cover (extent = world, resolution 5 min -> +- 10 km)
+- CIESIN migration (extent = world, resolution 1 km)
 
 Extent:
 
@@ -56,6 +56,10 @@ library(ggplot2)
 library(googleVis)
 library(rasterVis)
 library(ISOcodes)
+library(rgeos)
+library(maptools)
+library(PBSmapping)
+
 
 
 # Load input data into memory
@@ -144,15 +148,15 @@ source('R/Simplify.R')
 ## Land use maps after reclassification
 
 ```{r, echo=FALSE}
+# Plotting Simplified land use maps for both years
 opar <- par(mfrow=c(1,2))
 cols = c('darkgreen', 'green', 'orange', 'red')
-plot(Countrypoly, bg = "lightblue", main = paste('Landuse', Countryname, "2001", sep = " "), lwd = 1)
+plot(Continentpoly_clipped, col='lightyellow', bg = "lightblue", main = paste('Landuse', Countryname, "2001", sep = " "), lwd = 1)
 plot(LU_Ras_Simple$LU_2001,  add=T, col = cols, legend = FALSE, main = '2001')
-legend("bottomright", legend=c("Forest", "Other_Veg", "Agriculture", "Urban"), fill=cols, bg="white", text.font=9, text.width = 6, cex = 0.7)
-
-plot(Countrypoly, bg = "lightblue", main = paste('Landuse', Countryname, "2010", sep = " ") , lwd = 1)
+legend("bottomright", legend=c("Forest", "Other_Veg", "Agriculture", "Urban"), fill=cols, bg="white", text.font=9, text.width = 4, cex = 0.5)
+plot(Continentpoly_clipped, col='lightyellow', bg = "lightblue", main = paste('Landuse', Countryname, "2010", sep = " ") , lwd = 1)
 plot(LU_Ras_Simple$LU_2010,  add=T, col = cols, legend = FALSE)
-legend("bottomright", legend=c("Forest", "Other_Veg", "Agriculture", "Urban"), fill=cols, bg="white", text.font=9, text.width = 6, cex = 0.7)
+legend("bottomright", legend=c("Forest", "Other_Veg", "Agriculture", "Urban"), fill=cols, bg="white", text.font=9, text.width = 4, cex = 0.5)
 par(opar)
 ```
 
@@ -192,13 +196,14 @@ colnames(CF_mat) <- (c('Forest2010', 'Other veg2010',
 Which will show the count of cells
 for every LU change type
 
-# Confusion matrix (2)
+## Confusion matrix (2)
 
 ```{r}
-CF_mat
+print(CF_mat)
 ```
-show the count of cells
-for every LU change type
+
+This shows per conversion type the count of cells
+
 
 ## Land use change
 
@@ -244,6 +249,8 @@ PlotChange(Urban_Change)
 
 ## **MIGRATION**
 
+We chose mean migration per subnatinal level because count would not be relative to size of region
+
 ## Statistics...
 
 ```{r}
@@ -255,7 +262,17 @@ hist(migr_bigcell, col=c('lightblue'), breaks = 50, xlab = 'Mean migration')
 source('R/MigrationSub.R')
 ```
 
-# We extract mean migration per subnational level...
+## We extract mean migration per subnational level...
+
+```{r, echo=FALSE, include=FALSE}
+# Create GoogleVis Map
+source('R/MigrVis.R')
+```
+
+```{r, echo=FALSE}
+#spplot results
+spplot(Migr_sub_final, zcol = 'netmigration_2000_2010_1km_crop')
+```
 
 
 ## A GoogleVis map is created
@@ -269,9 +286,10 @@ HTML <- gvisGeoChart(Migr_sub_final_plot,locationvar = "Code",
 
 ## Concluding
 
-- Course provided useful tools for this project
+- Course provided useful tools for this project,
+          we feel more confident with using R
 - Thanks to R, all our *mistakes* did not cause us having RSI
-- Script not completely generic (e.g. GoogleVIS)
+- Script not completely generic, improvement would be more functions
     
     
     
